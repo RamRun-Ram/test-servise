@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-dictionaryValue.yaml
+  - include:
+      file: db/changelog/changeset/create-document.yaml
+  - include:
+      file: db/changelog/changeset/create-test.yaml

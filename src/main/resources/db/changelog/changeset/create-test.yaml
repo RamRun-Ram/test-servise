@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: dev_3
+      author: ramil_sh
+      changes:
+        - createTable:
+            tableName: test_entity
+            columns:
+                - column:
+                    name: id
+                    type: bigint
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: name_test
+                    type: varchar(200)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: document_entity_id
+                    type: bigint
+                    constraints:
+                      foreignKeyName: document_test_fk
+                      referencedTableName: document_entity
+                      referencedColumnNames: id
+                - column:
+                    name: dictionary_value_entity_id
+                    type: bigint
+                    constraints:
+                      foreignKeyName: dictionary_test_fk
+                      referencedTableName: dictionary_value_entity
+                      referencedColumnNames: id
