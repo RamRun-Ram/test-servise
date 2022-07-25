@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: dev_2
+      author: ramil_sh
+      changes:
+        - createTable:
+            tableName: document_entity
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_date
+                  type: date
+                  constraints:
+                    nullable: false
