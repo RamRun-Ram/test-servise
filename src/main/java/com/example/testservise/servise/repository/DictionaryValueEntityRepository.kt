@@ -1,7 +1,8 @@
-package com.example.testservise.servise.repository;
+package com.example.testservise.servise.repository
 
-import com.example.testservise.domain.entity.DictionaryValueEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.testservise.domain.entity.DictionaryValueEntity
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-public interface DictionaryValueRepository extends JpaRepository<DictionaryValueEntity,Long> {
-}
+@Repository
+interface DictionaryValueEntityRepository : JpaRepository<DictionaryValueEntity?, Long?>

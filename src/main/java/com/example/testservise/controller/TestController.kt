@@ -1,46 +1,40 @@
-package com.example.testservise.controller;
+package com.example.testservise.controller
 
-import com.example.testservise.domain.dto.TestDto;
-import com.example.testservise.servise.TestService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import lombok.RequiredArgsConstructor
+import org.springframework.web.bind.annotation.RequestMapping
+import com.example.testservise.servise.TestService
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.http.ResponseEntity
+import com.example.testservise.domain.entity.TestEntity
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.DeleteMapping
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/test")
-public class TestController {
-    private final TestService testService;
+class TestController(private var testService: TestService) {
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<TestDto>  findByIdTest(@PathVariable Long id) {
-        return ResponseEntity.ok(testService.findByIdTest(id));
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<TestDto>>  findAllTest(){
-        return ResponseEntity.ok(testService.findAllTest()) ;
+    fun findByIdTest(@PathVariable id: Long?): ResponseEntity<TestEntity> {
+        return ResponseEntity.ok(testService.findByIdTest(id!!))
     }
 
     @PostMapping("/create")
-    public ResponseEntity<TestDto> createTestDto(@RequestBody TestDto testDto){
-        return ResponseEntity.ok(testService.createTest(testDto));
+    fun createTestDto(@RequestBody testEntity: TestEntity): ResponseEntity<TestEntity> {
+        return ResponseEntity.ok(testService.createTest(testEntity))
     }
 
     @PutMapping
-    public ResponseEntity<TestDto> updateTest(@RequestBody TestDto testDto){
-        return ResponseEntity.ok(testService.updateTest(testDto)) ;
+    fun updateTest(@RequestBody testEntity: TestEntity?): ResponseEntity<TestEntity> {
+        return ResponseEntity.ok(testService.updateTest(testEntity!!))
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteTest(@PathVariable Long id){
-        return ResponseEntity.ok(testService.deleteTest(id));
+    fun deleteTest(@PathVariable id: Long?): ResponseEntity<Boolean> {
+        return ResponseEntity.ok(testService.deleteTest(id!!))
     }
-
-
-
-
 }

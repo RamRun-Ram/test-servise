@@ -1,13 +1,10 @@
-package com.example.testservise.servise;
+package com.example.testservise.servise
 
-import com.example.testservise.domain.dto.TestDto;
+import com.example.testservise.domain.entity.TestEntity
 
-import java.util.List;
-
-public interface TestService {
-    TestDto findByIdTest(Long id);
-    List<TestDto> findAllTest();
-    TestDto createTest(TestDto testDto);
-    TestDto updateTest(TestDto testDto);
-    boolean deleteTest(Long id);
+interface TestService {
+    fun findByIdTest(id: Long): TestEntity?
+    fun createTest(testEntity: TestEntity): TestEntity
+    fun updateTest(testEntity: TestEntity): TestEntity?
+    fun deleteTest(id: Long): Boolean
 }

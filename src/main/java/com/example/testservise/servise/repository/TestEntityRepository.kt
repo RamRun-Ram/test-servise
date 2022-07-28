@@ -1,7 +1,8 @@
-package com.example.testservise.servise.repository;
+package com.example.testservise.servise.repository
 
-import com.example.testservise.domain.entity.TestEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.testservise.domain.entity.TestEntity
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-public interface TestRepository extends JpaRepository<TestEntity,Long> {
-}
+@Repository
+interface TestEntityRepository : JpaRepository<TestEntity, Long?>

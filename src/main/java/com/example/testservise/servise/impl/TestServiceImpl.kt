@@ -1,54 +1,35 @@
-package com.example.testservise.servise.impl;
+package com.example.testservise.servise.impl
 
-import com.example.testservise.domain.dto.TestDto;
-import com.example.testservise.domain.entity.TestEntity;
-import com.example.testservise.mapper.TestMapper;
-import com.example.testservise.servise.TestService;
-import com.example.testservise.servise.repository.TestRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.example.testservise.domain.entity.TestEntity
+import com.example.testservise.servise.TestService
+import com.example.testservise.servise.repository.TestEntityRepository
+import java.lang.RuntimeException
+import org.springframework.stereotype.Service
 
 @Service
-@RequiredArgsConstructor
-public class TestServiceImpl implements TestService {
-    private final TestRepository testRepository;
-    private final TestMapper testMapper;
+class TestServiceImpl(private var testRepository: TestEntityRepository) : TestService {
 
-    @Override
-    public TestDto findByIdTest(Long id) {
-        TestEntity testEntity = testRepository.findById(id).orElseThrow(RuntimeException::new);
-        return testMapper.testToDto(testEntity);
+
+    override fun findByIdTest(id: Long): TestEntity? {
+        return testRepository.findById(id).orElseThrow { RuntimeException() }!!
     }
 
-    @Override
-    public List<TestDto> findAllTest() {
-        List<TestEntity> testDtoList = testRepository.findAll();
-        return testMapper.testEntityListToDtoList(testDtoList);
+    override fun createTest(testEntity: TestEntity): TestEntity {
+        return testRepository.save(testEntity)
     }
 
-    @Override
-    public TestDto createTest(TestDto testDto) {
-        TestEntity testEntity = testRepository.save(testMapper.testToEntity(testDto));
-        return testMapper.testToDto(testEntity);
-    }
-
-    @Override
-    public TestDto updateTest(TestDto testDto) {
-        if (testDto.getId() != null && testRepository.existsById(testDto.getId())) {
-            TestEntity testEntity = testRepository.save(testMapper.testToEntity(testDto));
-            return testMapper.testToDto(testEntity);
+    override fun updateTest(testEntity: TestEntity): TestEntity? {
+        if (testEntity.id != null && testRepository!!.existsById(testEntity.id)) {
+            return testRepository.save(testEntity)
         }
-        throw new RuntimeException();
+        throw RuntimeException()
     }
 
-    @Override
-    public boolean deleteTest(Long id) {
+    override fun deleteTest(id: Long): Boolean {
         if (testRepository.existsById(id)) {
-            testRepository.deleteById(id);
-            return true;
+            testRepository.deleteById(id)
+            return true
         }
-        throw new RuntimeException();
+        throw RuntimeException()
     }
 }
